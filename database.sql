@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS pengguna(
     id_pengguna INT PRIMARY KEY AUTO_INCREMENT,
     nama_lengkap VARCHAR(100) NOT NULL, 
     username VARCHAR(50) NOT NULL UNIQUE,
-    pasword VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'petugas') NOT NULL,
     foto VARCHAR(255),
     dibuat_pada TIMESTAMP DEFAULT CURRENT_TIMESTAMP

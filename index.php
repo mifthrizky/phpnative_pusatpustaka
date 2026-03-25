@@ -22,7 +22,7 @@
             <div class="container">
                 <a href="#" class="navbar-brand fw-bold text-success">
                     <i class="fa-solid fa-swatchbook"></i>
-                    Pusat Pustaka
+                    PusatPustaka
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -36,7 +36,7 @@
                             <a href="#fitur" class="nav-link">Fitur</a>
                         </li>
                         <li class="nav-item ms-lg-3">
-                            <a href="#login" class="btn btn-success px-4 py-2 rounded-pill">Login Panel</a>
+                            <a href="login.php" class="btn btn-success px-4 py-2 rounded-pill">Login Panel</a>
                         </li>
                     </ul>
 

@@ -19,7 +19,7 @@ if (!isset($_SESSION['id_pengguna'])) {
     <!-- Bootstrap 5 -->
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -102,11 +102,6 @@ if (!isset($_SESSION['id_pengguna'])) {
             border: none;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-
-        .card-custom:hover {
-            transform: translateY(-5px);
         }
 
         .profile-img-nav {
@@ -165,9 +160,9 @@ if (!isset($_SESSION['id_pengguna'])) {
                 <a href="dashboard.php" class="list-group-item list-group-item-action"><i class="fa-solid fa-border-all"></i>Dashboard</a>
 
                 <div class="mt-3 px-4 mb-2 small text-uppercase opacity-50">Master Data</div>
-                <a href="dashboard.php" class="list-group-item list-group-item-action"><i class="fa-solid fa-list"></i>Kategori</a>
-                <a href="dashboard.php" class="list-group-item list-group-item-action"><i class="fa-solid fa-building"></i>Penerbit</a>
-                <a href="dashboard.php" class="list-group-item list-group-item-action"><i class="fa-solid fa-book"></i>Buku</a>
+                <a href="kategori.php" class="list-group-item list-group-item-action"><i class="fa-solid fa-list"></i>Kategori</a>
+                <a href="penerbit.php" class="list-group-item list-group-item-action"><i class="fa-solid fa-building"></i>Penerbit</a>
+                <a href="buku.php" class="list-group-item list-group-item-action"><i class="fa-solid fa-book"></i>Buku</a>
 
                 <?php if ($_SESSION['role'] === 'admin') : ?>
                     <div class="mt-3 px-4 mb-2 small text-uppercase opacity-50">Transaksi</div>
@@ -188,7 +183,7 @@ if (!isset($_SESSION['id_pengguna'])) {
                     <button class="btn btn-light me-3">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <h5 class="mb-0 d-none d-md-block align-items-center">Library Administration Panel</h5>
+                    <h5 class="mb-0 d-none d-md-block align-items-center fw-bold">Library Administration Panel</h5>
                 </div>
 
                 <div class="d-flex align-items-center">

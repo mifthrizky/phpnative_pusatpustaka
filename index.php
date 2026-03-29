@@ -8,7 +8,7 @@
         <!-- Bootstrap 5 -->
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap" rel="stylesheet"> 
         <!-- font awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 

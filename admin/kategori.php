@@ -44,7 +44,7 @@ if (isset($_POST['hapus'])) {
         <div class="card card-custom p-4 bg-white mb-4">
             <!-- Button Atas Tabel -->
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahKategoriModal">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahKategoriModal">
                     + Tambah Kategori
                 </button>
                 <div class="w-25">
@@ -53,8 +53,8 @@ if (isset($_POST['hapus'])) {
             </div>
 
             <!-- Tabel Read Kategori -->
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
+            <div class="table-responsive border rounded overflow-hidden mb-3">
+                <table class="table table-hover mb-0">
                     <thead class="table-light">
                         <tr>
                             <th width="15%">ID Kategori</th>
@@ -85,17 +85,16 @@ if (isset($_POST['hapus'])) {
                         ?>
                     </tbody>
                 </table>
-
-                <!-- Pagination -->
-                <nav>
-                    <ul class="pagination justify-content-end mb-0">
-                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav>
             </div>
+
+            <nav>
+                <ul class="pagination justify-content-end mb-0">
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

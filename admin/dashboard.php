@@ -2,10 +2,10 @@
 require_once '../layouts/header.php';
 
 // Ambil data untuk statistik
-$jml_buku = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM buku"))['total'];
-$jml_kategori = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kategori"))['total'];
-$jml_peminjaman = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM peminjaman"))['total'];
-$jml_pengguna = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) as total from pengguna"))['total'];
+$jml_buku = $koneksi->query("SELECT COUNT(*) FROM buku")->fetchColumn();
+$jml_kategori = $koneksi->query("SELECT COUNT(*) FROM kategori")->fetchColumn();
+$jml_peminjaman = $koneksi->query("SELECT COUNT(*) FROM peminjaman")->fetchColumn();
+$jml_pengguna = $koneksi->query("SELECT COUNT(*) FROM pengguna")->fetchColumn();
 ?>
 
 <div class="row">

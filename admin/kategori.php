@@ -1,42 +1,22 @@
 <?php
 require_once '../layouts/header.php';
 
-// Function Form Progress
-if (isset($_POST['simpan'])) {
-    $nama_kategori = mysqli_real_escape_string($koneksi, $_POST['nama_kategori']);
-    $id_kategori = $_POST['id_kategori'];
+// Pagination setup
+$items_per_page = 10;
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$current_page = max(1, $current_page);
 
-    if ($id_kategori == "") {
-        $query = "INSERT INTO kategori (nama_kategori) VALUES ('$nama_kategori')";
-    } else {
-        $query = "UPDATE kategori SET nama_kategori = '$nama_kategori' WHERE id_kategori = $id_kategori";
-    }
+// Get total records
+$total_result = $koneksi->query("SELECT COUNT(*) as total FROM kategori");
+$total_row = $total_result->fetch();
+$total_records = $total_row['total'];
+$total_pages = ceil($total_records / $items_per_page);
 
-    if (mysqli_query($koneksi, $query)) {
-        echo "<script>
-            alert('Data kategori berhasil disimpan');
-            window.location.href = 'kategori.php';
-          </script>";
-        exit;
-    } else {
-        echo "<script>alert('Error: " . mysqli_error($koneksi) . "');</script>";
-    }
-}
+// Ensure current page doesn't exceed total pages
+$current_page = min($current_page, max(1, $total_pages));
 
-// Function Delete
-if (isset($_POST['hapus'])) {
-    $id_kategori = $_POST['id_kategori'];
-    $query = "DELETE FROM kategori WHERE id_kategori = $id_kategori";
-    if (mysqli_query($koneksi, $query)) {
-        echo "<script>
-            alert('Data kategori berhasil dihapus');
-            window.location.href = 'kategori.php';
-          </script>";
-        exit;
-    } else {
-        echo "<script>alert('Error: " . mysqli_error($koneksi) . "');</script>";
-    }
-}
+// Calculate offset
+$offset = ($current_page - 1) * $items_per_page;
 ?>
 
 <div class="row">
@@ -64,9 +44,9 @@ if (isset($_POST['hapus'])) {
                     </thead>
                     <tbody>
                         <?php
-                        $no = 1;
-                        $query = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY id_kategori DESC");
-                        while ($row = mysqli_fetch_assoc($query)):
+                        $no = $offset + 1;
+                        $stmt = $koneksi->query("SELECT * FROM kategori ORDER BY id_kategori ASC LIMIT $items_per_page OFFSET $offset");
+                        while ($row = $stmt->fetch()):
                         ?>
                             <tr>
                                 <td><?= $no++ ?></td>
@@ -87,14 +67,57 @@ if (isset($_POST['hapus'])) {
                 </table>
             </div>
 
-            <nav>
-                <ul class="pagination justify-content-end mb-0">
-                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
+            <!-- Pagination Container -->
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <!-- Page Info (Left) -->
+                <div class="text-muted small">
+                    Halaman <?= $current_page ?> dari <?= max(1, $total_pages) ?> | Total: <?= $total_records ?> kategori
+                </div>
+
+                <!-- Pagination (Right) -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination pagination-sm mb-0">
+                        <!-- Previous Button -->
+                        <li class="page-item <?= $current_page <= 1 ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $current_page - 1 ?>" <?= $current_page <= 1 ? 'onclick="return false;"' : '' ?>>
+                                ← Sebelumnya
+                            </a>
+                        </li>
+
+                        <!-- Page Numbers -->
+                        <?php
+                        $start_page = max(1, $current_page - 2);
+                        $end_page = min($total_pages, $current_page + 2);
+
+                        if ($start_page > 1): ?>
+                            <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                            <?php if ($start_page > 2): ?>
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            <?php endif;
+                        endif;
+
+                        for ($page = $start_page; $page <= $end_page; $page++): ?>
+                            <li class="page-item <?= $page == $current_page ? 'active' : '' ?>">
+                                <a class="page-link" href="?page=<?= $page ?>"><?= $page ?></a>
+                            </li>
+                            <?php endfor;
+
+                        if ($end_page < $total_pages):
+                            if ($end_page < $total_pages - 1): ?>
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            <?php endif; ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?= $total_pages ?>"><?= $total_pages ?></a></li>
+                        <?php endif; ?>
+
+                        <!-- Next Button -->
+                        <li class="page-item <?= $current_page >= $total_pages ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $current_page + 1 ?>" <?= $current_page >= $total_pages ? 'onclick="return false;"' : '' ?>>
+                                Selanjutnya →
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </div>
@@ -108,7 +131,7 @@ if (isset($_POST['hapus'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST">
+                <form method="POST" action="action/kategori_action.php">
                     <input type="hidden" name="id_kategori" id="id_kategori">
                     <div class="mb-3">
                         <label for="namaKategori" class="form-label">Nama Kategori</label>
@@ -132,7 +155,7 @@ if (isset($_POST['hapus'])) {
                 <h5 class="modal-title" id="modalEditLabel">Edit Kategori</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="POST">
+            <form method="POST" action="action/kategori_action.php">
                 <div class="modal-body">
                     <input type="hidden" name="id_kategori" id="editIdKategori">
                     <div class="mb-3">
@@ -157,10 +180,10 @@ if (isset($_POST['hapus'])) {
                 <h5 class="modal-title text-danger" id="modalHapusLabel">Konfirmasi Hapus</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="POST">
+            <form method="POST" action="action/kategori_action.php">
                 <div class="modal-body">
                     <input type="hidden" name="id_kategori" id="hapusIdKategori">
-                    <p>Apakah Anda yakin ingin menghapus kategori ini? Data yang dihapus tidak dapat dikembalikan.</p>
+                    <p>Apakah Anda yakin ingin menghapus kategori ini?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

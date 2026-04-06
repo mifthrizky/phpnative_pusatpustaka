@@ -4,7 +4,7 @@ require_once '../config/db.php';
 
 // Cek autentikasi
 if (!isset($_SESSION['id_pengguna'])) {
-    header("Location: ../login.php");
+    header("Location: ../auth/login.php");
     exit();
 }
 ?>
@@ -22,11 +22,13 @@ if (!isset($_SESSION['id_pengguna'])) {
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
 
     <!-- Custom Styles -->
     <style>
         :root {
-            --sidebar-bg: #1b5e20;
+            --sidebar-bg: #1e3a8a;
             --premium-gold: #c5a021;
         }
 
@@ -172,7 +174,7 @@ if (!isset($_SESSION['id_pengguna'])) {
 
                 <div class="mt-3 px-4 mb-2 small text-uppercase opacity-50">Akun</div>
                 <a href="dashboard.php" class="list-group-item list-group-item-action"><i class="fa-solid fa-user"></i>Profil</a>
-                <a href="../logout.php" class="list-group-item list-group-item-action logout-item"><i class="fa-solid fa-sign-out-alt"></i>Keluar</a>
+                <a href="../auth/logout.php" class="list-group-item list-group-item-action logout-item"><i class="fa-solid fa-sign-out-alt"></i>Keluar</a>
             </div>
         </div>
 

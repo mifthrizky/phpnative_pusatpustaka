@@ -21,15 +21,15 @@ if (!isset($_SESSION['id_pengguna'])) {
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- font awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css"> <!-- Custom Styles -->
+    <link rel="stylesheet" href="../assets/style.css">
 
     <!-- Custom Styles -->
     <style>
         :root {
             --sidebar-bg: #1e3a8a;
-            --premium-gold: #c5a021;
+            --premium-white: #f8fafc;
         }
 
         body {
@@ -57,7 +57,7 @@ if (!isset($_SESSION['id_pengguna'])) {
             padding: 2rem 1.5rem;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--premium-gold);
+            color: var(--premium-white);
             text-align: center;
         }
 
@@ -82,7 +82,7 @@ if (!isset($_SESSION['id_pengguna'])) {
         .list-group-item.active {
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            border-left: 5px solid var(--premium-gold);
+            border-left: 5px solid var(--premium-white);
         }
 
         #page-content-wrapper {

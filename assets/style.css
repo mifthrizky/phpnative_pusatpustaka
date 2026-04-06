@@ -1,3 +1,8 @@
+html,
+body {
+  overscroll-behavior: none;
+}
+
 :root {
   --primary-color: #1e40af;
   --primary-dark: #1e3a8a;
@@ -23,4 +28,158 @@
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
   --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+/* Modern Table Styling */
+.table-modern {
+  border-collapse: collapse;
+}
+
+.table-row-modern {
+  transition: all 0.3s ease;
+}
+
+.table-row-modern:hover {
+  background: linear-gradient(90deg, rgba(30, 64, 175, 0.04) 0%, rgba(16, 185, 129, 0.04) 100%);
+}
+
+/* Action Buttons */
+.btn-action-edit,
+.btn-action-delete {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.btn-action-edit {
+  background: #faefd1;
+  color: #f59e0b;
+}
+
+.btn-action-edit:hover {
+  background: #eab251;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-action-delete {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.btn-action-delete:hover {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Primary Button */
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 11px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-3px);
+}
+
+/* Search Input */
+.search-kategori {
+  border-radius: 8px !important;
+  font-size: 0.95rem;
+  color: #1e293b;
+  transition: all 0.3s ease;
+}
+
+.search-kategori:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+  background: white !important;
+}
+
+/* Input Group */
+.input-group-text {
+  border-radius: 8px 0 0 8px !important;
+}
+
+/* Pagination Styling */
+.pagination {
+  list-style: none;
+  display: flex;
+  gap: 4px;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.pagination-link:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.pagination-link.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Table Header Style */
+thead[style*="f8fafc"] {
+  background: #f8fafc !important;
+  color: black !important;
+}
+
+thead[style*="f8fafc"] th {
+  color: black !important;
+  background: transparent !important;
+}
+
+@media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .btn-primary {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .search-kategori {
+    width: 100%;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+  }
 }

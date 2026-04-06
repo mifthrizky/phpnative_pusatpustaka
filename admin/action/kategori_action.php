@@ -15,11 +15,15 @@ if (isset($_POST['hapus'])) {
         $stmt->bindParam(':id', $id_kategori, PDO::PARAM_INT);
         $stmt->execute();
 
-        $_SESSION['flash_msg'] = "Data kategori berhasil dihapus";
+        $_SESSION['alert_type'] = 'success';
+        $_SESSION['alert_msg'] = 'Data kategori berhasil dihapus';
         header("Location: ../kategori.php");
         exit();
     } catch (\PDOException $e) {
-        die("Fatal error hapus: " . $e->getMessage());
+        $_SESSION['alert_type'] = 'error';
+        $_SESSION['alert_msg'] = "Gagal menghapus: " . $e->getMessage();
+        header("Location: ../kategori.php");
+        exit();
     }
 }
 
@@ -29,26 +33,61 @@ if (isset($_POST['simpan'])) {
     $nama_kategori = trim($_POST['nama_kategori']);
 
     if (empty($nama_kategori)) {
-        $_SESSION['flash_msg'] = "Nama kategori tidak boleh kosong";
+        $_SESSION['alert_type'] = 'warning';
+        $_SESSION['alert_msg'] = 'Nama kategori tidak boleh kosong';
         header("Location: ../kategori.php");
         exit();
     }
 
     try {
         if ($id_kategori == "") {
+            // Check for duplicate when adding
+            $check = $koneksi->prepare("SELECT COUNT(*) as count FROM kategori WHERE nama_kategori = :nama");
+            $check->bindParam(':nama', $nama_kategori, PDO::PARAM_STR);
+            $check->execute();
+            $result = $check->fetch();
+
+            if ($result['count'] > 0) {
+                $_SESSION['alert_type'] = 'error';
+                $_SESSION['alert_msg'] = 'Nama kategori sudah ada';
+                header("Location: ../kategori.php");
+                exit();
+            }
+
             $stmt = $koneksi->prepare("INSERT INTO kategori (nama_kategori) VALUES (:nama)");
             $stmt->bindParam(':nama', $nama_kategori, PDO::PARAM_STR);
+            $stmt->execute();
+            $_SESSION['alert_type'] = 'success';
+            $_SESSION['alert_msg'] = 'Data kategori berhasil ditambahkan';
         } else {
+            // Check for duplicate when updating (exclude current id)
+            $check = $koneksi->prepare("SELECT COUNT(*) as count FROM kategori WHERE nama_kategori = :nama AND id_kategori != :id");
+            $check->bindParam(':nama', $nama_kategori, PDO::PARAM_STR);
+            $check->bindParam(':id', $id_kategori, PDO::PARAM_INT);
+            $check->execute();
+            $result = $check->fetch();
+
+            if ($result['count'] > 0) {
+                $_SESSION['alert_type'] = 'error';
+                $_SESSION['alert_msg'] = 'Nama kategori sudah ada';
+                header("Location: ../kategori.php");
+                exit();
+            }
+
             $stmt = $koneksi->prepare("UPDATE kategori SET nama_kategori = :nama WHERE id_kategori = :id");
             $stmt->bindParam(':nama', $nama_kategori, PDO::PARAM_STR);
             $stmt->bindParam(':id', $id_kategori, PDO::PARAM_INT);
+            $stmt->execute();
+            $_SESSION['alert_type'] = 'success';
+            $_SESSION['alert_msg'] = 'Data kategori berhasil diperbarui';
         }
-        $stmt->execute();
 
-        $_SESSION['flash_msg'] = "Data kategori berhasil disimpan";
         header("Location: ../kategori.php");
         exit();
     } catch (\PDOException $e) {
-        die("Fatal error simpan: " . $e->getMessage());
+        $_SESSION['alert_type'] = 'error';
+        $_SESSION['alert_msg'] = "Gagal menyimpan: " . $e->getMessage();
+        header("Location: ../kategori.php");
+        exit();
     }
 }
